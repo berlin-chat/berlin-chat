@@ -1,9 +1,12 @@
 version: '3.7'
 
-service:
+services:
   app:
     build: ./app
     restart: always
   api:
     build: ./api
     restart: always
+    volumes:
+      - ./api/cmd:/root/cmd
+      - ./api/pkg:/root/pkg
