@@ -5,6 +5,7 @@ import ChatLayout from "./components/ChatLayout";
 import InputBar from "./components/InputBar";
 
 function App() {
+    /*
     const [data, setData] = useState({})
     console.log("hey")
 
@@ -15,7 +16,7 @@ function App() {
         }
         getData()
     }, [])
-
+*/
   return (
     <div className="App">
     <ChatLayout/>
