@@ -8,5 +8,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: docker build
+    - shell: bash
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-        docker build -t api -f ./api/Dockerfile.prod ./api
+        which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+        eval $(ssh-agent -s)
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        mkdir -p ~/.ssh && chmod 700 ~/.ssh
+        [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        ssh -tt deploy@berlin-chat.soon.it "echo 'test' > ./test.txt"
