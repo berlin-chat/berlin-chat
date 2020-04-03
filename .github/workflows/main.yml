@@ -9,11 +9,12 @@ jobs:
     - name: get code from repo
       uses: actions/checkout@v2
 
-    - name: echo 'test' > ./test.txt
+    - name: ssh into server
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: echo 'test' > ./test.txt
+        command: | 
+          echo 'test' > ./test.txt
+          echo 'test2' > ./test2.txt
         host: ${{ secrets.HOST }}
         username: deploy
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
-
