@@ -13,6 +13,7 @@ import (
 )
 
 type Message struct {
+	ID			int32
 	Username	string
 	Message		string
 	Timestamp	time.Time
@@ -56,6 +57,8 @@ func main() {
 
 
 	http.HandleFunc("/message", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Access-Control-Allow-Origin", "*")
+
 		var message Message
 		if r.Method == "POST" {
 			json.NewDecoder(r.Body).Decode(&message)
@@ -65,16 +68,18 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Access-Control-Allow-Origin", "*")
+
 		messages := []Message{}
 
-		rows, err := sqliteDatabase.Query("SELECT username, message, timestamp FROM messages ORDER BY id")
+		rows, err := sqliteDatabase.Query("SELECT id, username, message, timestamp FROM messages ORDER BY id")
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer rows.Close()
 		for rows.Next() { // Iterate and fetch the records from result cursor
 			var message Message
-			err = rows.Scan(&message.Username, &message.Message, &message.Timestamp)
+			err = rows.Scan(&message.ID, &message.Username, &message.Message, &message.Timestamp)
 			if err != nil {
 				log.Fatalf("Scan: %v", err)
 			}

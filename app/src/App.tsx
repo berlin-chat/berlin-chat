@@ -5,21 +5,22 @@ import ChatLayout from "./components/ChatLayout";
 import InputBar from "./components/InputBar";
 
 function App() {
-    /*
-    const [data, setData] = useState({})
+    const [data, setData] = useState(new Array())
     console.log("hey")
 
     useEffect(() => {
         async function getData(){
             const res = await fetch("http://localhost:8080")
-            console.log(res)
+            setData(await res.json());
         }
         getData()
     }, [])
-*/
+
+    console.log(data);
+
   return (
     <div className="App">
-    <ChatLayout/>
+      <ChatLayout data={data} />
       <InputBar />
     </div>
   );
