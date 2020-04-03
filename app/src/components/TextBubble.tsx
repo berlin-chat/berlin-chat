@@ -10,12 +10,16 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 5,
             whiteSpace: 'pre-wrap',
             color: "#FFFFFF",
-            background: cyan[500]
+            background: cyan[500],
+            maxWidth: '80%',
+            overflow: 'hidden'
         },
         bubbleSecondary: {
             padding: 5,
             whiteSpace: 'pre-wrap',
-            background: cyan[50]
+            background: cyan[50],
+            maxWidth: '80%',
+            overflow: 'hidden'
         },
     }),
 );
