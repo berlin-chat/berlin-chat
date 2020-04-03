@@ -1,5 +1,4 @@
 import * as React from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import {TextBubble} from "./TextBubble";
 
 type Message = {
