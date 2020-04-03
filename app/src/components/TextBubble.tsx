@@ -12,14 +12,16 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#FFFFFF",
             background: cyan[500],
             maxWidth: '80%',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            wordBreak: 'break-word'
         },
         bubbleSecondary: {
             padding: 5,
             whiteSpace: 'pre-wrap',
             background: cyan[50],
             maxWidth: '80%',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            wordBreak: 'break-word'
         },
     }),
 );
