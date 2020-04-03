@@ -9,7 +9,7 @@ jobs:
     - name: get code from repo
       uses: actions/checkout@v2
 
-    - name: ls -a via ssh
+    - name: echo 'test' > ./test.txt
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: ls -a
@@ -17,6 +17,3 @@ jobs:
         username: deploy
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
-    - name: ssh into server
-      run: |
-        ssh -tt deploy@berlin-chat.soon.it "echo 'test' > ./test.txt"
