@@ -34,6 +34,8 @@ export default function InputBar({sendMsg}: Props) {
     const [msg, setMsg] = useState("")
 
     function sendMessageAndClearInput() {
+        if (msg.trim() === '') { setMsg(''); return; }
+
         sendMsg(msg);
         setMsg('');
     }
