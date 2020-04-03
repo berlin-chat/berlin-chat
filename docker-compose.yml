@@ -7,6 +7,8 @@ services:
   api:
     build: ./api
     restart: always
+    ports:
+      - 8080:8080
     volumes:
       - ./api/cmd:/root/cmd
       - ./api/pkg:/root/pkg
