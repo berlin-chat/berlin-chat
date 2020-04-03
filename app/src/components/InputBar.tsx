@@ -1,32 +1,45 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import {useState} from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            flexGrow: 1,
-            overflow: 'hidden',
-            padding: theme.spacing(0, 3),
-            width: "100%"
-        },
-        textField: {
+        inputBar: {
             width: "100%",
             position: "fixed",
             bottom: 0,
             left: 0,
             right: 0,
+        },
+        textField: {
+            width: "80%",
+        },
+        sendButton: {
+            width: "20%",
         }
     }),
 );
 
-export default function InputBar() {
+type Props = {
+    sendMsg: Function,
+}
+
+export default function InputBar({sendMsg}: Props) {
     const classes = useStyles();
+    const [msg, setMsg] = useState("")
 
     return (
-        <div className={classes.root}>
-            <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..."/>
+        <div className={classes.inputBar}>
+            <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." onChange={(event) => {
+                setMsg(event.target.value);
+            }}/>
+            <Button className={classes.sendButton} color="primary" onClick={() => {
+                sendMsg(msg);
+            }}>
+                Send
+            </Button>
         </div>
     );
 }
