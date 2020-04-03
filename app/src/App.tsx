@@ -26,7 +26,7 @@ function App() {
     const [i, setI] = useState(0);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [user, setUser] = useState("unkown");
+    const [user, setUser] = useState("unknown");
 
     useEffect(() => {
         async function getData(){
@@ -64,7 +64,7 @@ function App() {
                 m={1}
                 bgcolor="background.paper"
             >
-            <ChatLayout data={data} />
+            <ChatLayout data={data} localUser={user} />
             </Box>
             <Box
                 display="flex"

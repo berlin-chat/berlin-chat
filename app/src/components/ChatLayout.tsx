@@ -9,14 +9,17 @@ type Message = {
 }
 
 type ChatLayoutProps = {
-    data: Array<Message>
+    data: Array<Message>,
+    localUser: string
 }
 
-export default function ChatLayout({data}: ChatLayoutProps){
+export default function ChatLayout({data, localUser}: ChatLayoutProps){
     return (
         <div style={{ width: '100%' }}>
             {data.map((message: Message) => (
-                <TextBubble key={message.ID} msg={message.Message} timeStamp={message.Timestamp} user={message.Username} position="row" />
+                <TextBubble key={message.ID} msg={message.Message} timeStamp={message.Timestamp} user={message.Username} position={(
+                    message.Username === localUser ? "row" : "row-reverse"
+                )} />
             ))}
         </div>
     );
