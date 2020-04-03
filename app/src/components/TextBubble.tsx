@@ -25,7 +25,7 @@ export default function TextBubble({msg, timeStamp, user, position}: BubbleProps
         <aside>
             <Box p={1} display="flex" flexDirection={ position } bgcolor="background.paper">
                 <Paper className={classes.bubble} color="primary" elevation={3}>
-                    { user } ({date.getHours()}:{date.getMinutes()}): { msg }
+                    { user } ({("0" + date.getHours()).slice(-2)}:{("0" + date.getMinutes()).slice(-2)}): { msg }
                 </Paper>
             </Box>
         </aside>
