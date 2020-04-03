@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import './App.css';
 import ChatLayout from "./components/ChatLayout";
 import InputBar from "./components/InputBar";
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 function App() {
     const [data, setData] = useState(new Array())
@@ -24,11 +24,29 @@ function App() {
     }
 
     return (
-    <div className="App">
-        <ChatLayout data={data} />
-        <InputBar sendMsg={sendMsg}/>
-    </div>
-);
+        <div className="App">
+            <Box
+                display="flex"
+                flexWrap="wrap"
+                alignContent="flex-start"
+                p={1}
+                m={1}
+                bgcolor="background.paper"
+            >
+            <ChatLayout data={data} />
+            </Box>
+            <Box
+                display="flex"
+                flexWrap="wrap"
+                alignContent="flex-end"
+                p={1}
+                m={1}
+                bgcolor="background.paper"
+                css={{ height: 50 }}>
+            <InputBar sendMsg={sendMsg}/>
+            </Box>
+        </div>
+    );
 }
 
 export default App;

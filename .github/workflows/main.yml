@@ -2,19 +2,24 @@ name: CI
 
 on: [push]
 
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: docker build
-    - shell: bash
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: get code from repo
+      uses: actions/checkout@v2
+
+    - name: set ssh key inside pipeline
       run: |
         which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
         eval $(ssh-agent -s)
         echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
         mkdir -p ~/.ssh && chmod 700 ~/.ssh
         [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+    - name: ssh into server
+      run: |
         ssh -tt deploy@berlin-chat.soon.it "echo 'test' > ./test.txt"
