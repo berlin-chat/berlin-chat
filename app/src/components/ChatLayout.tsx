@@ -1,5 +1,5 @@
 import * as React from "react";
-import {TextBubble} from "./TextBubble";
+import TextBubble from "./TextBubble";
 
 type Message = {
     ID: number,

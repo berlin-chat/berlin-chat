@@ -9,12 +9,33 @@ jobs:
     - name: get code from repo
       uses: actions/checkout@v2
 
-    - name: ssh into server
-      uses: garygrossgarten/github-action-ssh@release
+    - name: setup server
+      uses: alinz/ssh-scp-action@master
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        HOST: ${{ secrets.HOST }}
       with:
-        command: | 
-          echo 'test' > ./test.txt
-          echo 'test2' > ./test2.txt
-        host: ${{ secrets.HOST }}
-        username: deploy
-        privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+        key: $SSH_PRIVATE_KEY
+        host: $HOST
+        port: 22
+        user: deploy
+        ssh_before: |
+          echo "test"
+
+        scp: |
+          ./api deploy@$HOST:~/api
+          ./app deploy@$HOST:~/app
+          docker-compose.prod.yml deploy@$HOST:~/docker-compose.yml
+
+        ssh_after: |
+          sudo docker-compose up -d --build
+
+    # - name: ssh into server
+    #   uses: garygrossgarten/github-action-ssh@release
+    #   with:
+    #     command: | 
+    #       echo 'test' > ./test.txt
+    #       echo 'test2' > ./test2.txt
+    #     host: ${{ secrets.HOST }}
+    #     username: deploy
+    #     privateKey: ${{ secrets.SSH_PRIVATE_KEY}}

@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  app:
+    build: ./app
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/src:/app/src
+      - ./app/public:/app/public
+  api:
+    build: ./api/Dockerfile.prod
+    restart: always
+    ports:
+      - 8080:8080
+
