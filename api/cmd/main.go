@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
-
+	"time"
 	"os"
 	"database/sql"
 
@@ -15,6 +15,7 @@ import (
 type Message struct {
 	Username	string
 	Message		string
+	Timestamp	time.Time
 }
 
 type Messages []Message
@@ -33,10 +34,12 @@ func main() {
 	sqliteDatabase, _ := sql.Open("sqlite3", "/root/cmd/sqlite-database.db")
 	defer sqliteDatabase.Close() // Defer Closing the database
 
+
 	createMessagesTableSQL := `CREATE TABLE messages (
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
 		"username" VARCHAR,
-		"message" TEXT
+		"message" TEXT,
+		"timestamp" DATETIME DEFAULT CURRENT_TIMESTAMP
 	  );` // SQL Statement for Create Table
 
 	log.Println("Create messages table...")
@@ -52,8 +55,6 @@ func main() {
 
 
 
-
-
 	http.HandleFunc("/message", func(w http.ResponseWriter, r *http.Request) {
 		var message Message
 		if r.Method == "POST" {
@@ -66,24 +67,18 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		messages := []Message{}
 
-		rows, err := sqliteDatabase.Query("SELECT username, message FROM messages ORDER BY id")
+		rows, err := sqliteDatabase.Query("SELECT username, message, timestamp FROM messages ORDER BY id")
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer rows.Close()
 		for rows.Next() { // Iterate and fetch the records from result cursor
 			var message Message
-			err = rows.Scan(&message.Username, &message.Message)
+			err = rows.Scan(&message.Username, &message.Message, &message.Timestamp)
 			if err != nil {
 				log.Fatalf("Scan: %v", err)
 			}
 			messages = append(messages, message)
-			//var id int
-			//var code string
-			//var name string
-			//var program string
-			//row.Scan(&id, &code, &name, &program)
-			//log.Println("Student: ", code, " ", name, " ", program)
 		}
 
 		if r.Method == "GET" {
