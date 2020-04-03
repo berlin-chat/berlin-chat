@@ -20,7 +20,7 @@ jobs:
         source: "./api,./app,docker-compose.prod.yml"
         target: "/home/deploy"
 
-    - name: ssh into server
+    - name: start server
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: | 
