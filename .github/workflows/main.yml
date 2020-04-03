@@ -12,10 +12,9 @@ jobs:
     - name: setup server
       uses: alinz/ssh-scp-action@master
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         HOST: ${{ secrets.HOST }}
       with:
-        key: $SSH_PRIVATE_KEY
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: $HOST
         port: 22
         user: deploy
