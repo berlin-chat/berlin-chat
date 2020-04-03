@@ -24,12 +24,17 @@ type BubbleProps = {
     position: string
 }
 
-export const TextBubble = ({msg, timeStamp, user, position}: BubbleProps) => <aside>
-    <div>
-        <Box display="flex" flexDirection={ position } p={1} {...useStyles}>
-            <Paper color="primary" elevation={3}>
-            { user } ( {timeStamp} ): { msg }
-            </Paper>
-        </Box>
-    </div>
-</aside>
+export default function TextBubble({msg, timeStamp, user, position}: BubbleProps) {
+    const date = new Date(timeStamp);
+    return (
+        <aside>
+            <div>
+                <Box display="flex" flexDirection={ position } p={1} {...useStyles}>
+                    <Paper color="primary" elevation={3}>
+                        { user } ({date.getHours()}:{date.getMinutes()}): { msg }
+                    </Paper>
+                </Box>
+            </div>
+        </aside>
+    );
+}
