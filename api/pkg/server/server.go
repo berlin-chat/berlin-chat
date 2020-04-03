@@ -41,7 +41,7 @@ func Start(port string) {
 			log.Fatal(err)
 		}
 		defer rows.Close()
-		for rows.Next() { // Iterate and fetch the records from result cursor
+		for rows.Next() {
 			var message Message
 			err = rows.Scan(&message.ID, &message.Username, &message.Message, &message.Timestamp)
 			if err != nil {

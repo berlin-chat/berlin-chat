@@ -31,15 +31,12 @@ func Bootstrap() {
 	  );`
 
 	log.Println("Create messages table...")
-	statement, err := sqliteDatabase.Prepare(createMessagesTableSQL) // Prepare SQL Statement
+	statement, err := sqliteDatabase.Prepare(createMessagesTableSQL)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	statement.Exec() // Execute SQL Statements
+	statement.Exec()
 	log.Println("messages table was created")
-
-	InsertMessage("Josef", "hi ihr heinis");
-	InsertMessage("Thilo", "selber heini");
 }
 
 func Query(query string) (*sql.Rows, error) {
