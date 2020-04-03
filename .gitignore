@@ -1,7 +1,3 @@
-# Datenbank
-
-/api/cmd/sqlite-database.db
-
 # node
 
 /node_modules
