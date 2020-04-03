@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './App.css';
 import ChatLayout from "./components/ChatLayout";
 import InputBar from "./components/InputBar";
+import Grid from '@material-ui/core/Grid';
 
 function App() {
     const [data, setData] = useState(new Array())
@@ -14,6 +15,7 @@ function App() {
             setData(await res.json());
         }
         getData()
+        window.scrollTo(0,document.body.scrollHeight);
     }, [i])
 
     async function sendMsg(msg: string) {
