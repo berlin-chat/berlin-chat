@@ -9,18 +9,18 @@ import (
 )
 
 func Bootstrap() {
-	log.Println("Deleting sqlite-database.db...")
-	os.Remove("/root/cmd/sqlite-database.db")
+	log.Println("Deleting database...")
+	os.Remove("/root/data/database.sqlite")
 
-	log.Println("Creating sqlite-database.db...")
-	file, err := os.Create("/root/cmd/sqlite-database.db")
+	log.Println("Creating database...")
+	file, err := os.Create("/root/data/database.sqlite")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	file.Close()
-	log.Println("sqlite-database.db was created")
+	log.Println("database was created")
 
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/cmd/sqlite-database.db")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 	defer sqliteDatabase.Close()
 
 	createMessagesTableSQL := `CREATE TABLE messages (
@@ -40,15 +40,15 @@ func Bootstrap() {
 }
 
 func Query(query string) (*sql.Rows, error) {
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/cmd/sqlite-database.db")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 
 	return sqliteDatabase.Query(query)
 }
 
 func InsertMessage(username string, message string) {
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/cmd/sqlite-database.db")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 
-	log.Println("Inserting message record ...")
+	log.Println("Inserting message record for user >>", username, "<<")
 	insertMessagesSQL := `INSERT INTO messages(username, message) VALUES (?, ?)`
 	statement, err := sqliteDatabase.Prepare(insertMessagesSQL) // Prepare statement. This is good to avoid SQL injections
 	if err != nil {

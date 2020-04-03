@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"encoding/json"
@@ -27,7 +26,6 @@ func Start(port string) {
 		if r.Method == "POST" {
 			json.NewDecoder(r.Body).Decode(&message)
 		}
-		fmt.Println(message)
 		database.InsertMessage(message.Username, message.Message)
 	})
 

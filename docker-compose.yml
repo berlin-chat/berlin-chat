@@ -17,3 +17,4 @@ services:
     volumes:
       - ./api/cmd:/root/cmd
       - ./api/pkg:/root/pkg
+      - ./data:/root/data
