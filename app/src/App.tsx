@@ -5,18 +5,29 @@ import InputBar from "./components/InputBar";
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {makeStyles, createStyles, Theme} from "@material-ui/core";
+import {makeStyles, createStyles, Theme, Slide} from "@material-ui/core";
+
+import { TransitionProps } from '@material-ui/core/transitions';
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         textField: {
-            width: "80%",
+            width: "100%",
         },
         sendButton: {
-            width: "20%",
+            width: "100%",
         }
     }),
 );
@@ -27,6 +38,7 @@ function App() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [user, setUser] = useState("unknown");
+    const [usernameError, setUsernameError] = useState("");
 
     useEffect(() => {
         async function getData(){
@@ -51,6 +63,11 @@ function App() {
     };
 
     const handleClose = () => {
+        if (user === 'unknown' || user === '') {
+            setUsernameError('Please set a username');
+            return;
+        }
+
         setOpen(false);
     };
 
@@ -74,20 +91,29 @@ function App() {
                 css={{ height: 50 }}>
             <InputBar sendMsg={sendMsg}/>
             </Box>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="Username">
-                <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-                <Paper>
-                    <Box p={2} >
-                        <TextField className={classes.textField} id="outlined-basic" label="Enter Username ..." onChange={(event) => {
+            <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} keepMounted aria-labelledby="Username">
+                <DialogTitle id="simple-dialog-title">Set username</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        id="outlined-basic"
+                        label="Enter Username ..."
+                        error={!!usernameError}
+                        helperText={usernameError}
+                        onChange={(event) => {
                             setUser(event.target.value);
-                        }}/>
-                        <Button className={classes.sendButton} onClick={() => {
-                            handleClose();
-                        }}>
-                            confirm
-                        </Button>
-                    </Box>
-                </Paper>
+                        }}
+                        onKeyUp={(event) => {
+                            if (event.key === 'Enter') {
+                                handleClose();
+                            }
+                        }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Confirm
+                    </Button>
+                </DialogActions>
             </Dialog>
         </div>
     );

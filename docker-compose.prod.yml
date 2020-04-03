@@ -2,16 +2,16 @@ version: '3.7'
 
 services:
   app:
-    build: ./app
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
     restart: always
     ports:
-      - 3000:3000
-    volumes:
-      - ./app/src:/app/src
-      - ./app/public:/app/public
+      - 80:80
   api:
-    build: ./api/Dockerfile.prod
+    build:
+      context: ./api
+      dockerfile: Dockerfile.prod
     restart: always
     ports:
       - 8080:8080
-

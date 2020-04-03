@@ -20,11 +20,11 @@ jobs:
         source: "./api,./app,docker-compose.prod.yml"
         target: "/home/deploy"
 
-    - name: ssh into server
+    - name: start server
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: | 
-          sudo docker-compose -f ./docker-compose.prod.yml up -d
+          sudo docker-compose -f docker-compose.prod.yml up --build -d
         host: ${{ secrets.HOST }}
         username: deploy
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
