@@ -22,9 +22,11 @@ jobs:
 
     - name: start server
       uses: garygrossgarten/github-action-ssh@release
+      env:
+        API_ORIGIN: ${{ secrets.API_ORIGIN }}
       with:
         command: | 
-          sudo export API_ORIGIN=http://berlin-chat.soon.it:8080 && docker-compose -f docker-compose.prod.yml up --build -d
+          sudo export API_ORIGIN=$API_ORIGIN && docker-compose -f docker-compose.prod.yml up --build -d
         host: ${{ secrets.HOST }}
         username: deploy
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
