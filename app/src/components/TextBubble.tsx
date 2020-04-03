@@ -2,11 +2,18 @@ import * as React from "react";
 import Box from '@material-ui/core/Box';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import cyan from '@material-ui/core/colors/cyan';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        bubble: {
-            padding: 5
+        bubblePrimary: {
+            padding: 5,
+            color: "#FFFFFF",
+            background: cyan[500]
+        },
+        bubbleSecondary: {
+            padding: 5,
+            background: cyan[50]
         },
     }),
 );
@@ -21,10 +28,11 @@ type BubbleProps = {
 export default function TextBubble({msg, timeStamp, user, position}: BubbleProps) {
     const date = new Date(timeStamp);
     const classes = useStyles();
+    const colorClass = position === "row" ? classes.bubbleSecondary: classes.bubblePrimary;
     return (
         <aside>
-            <Box p={1} display="flex" flexDirection={ position } bgcolor="background.paper">
-                <Paper className={classes.bubble} color="primary" elevation={3}>
+            <Box p={1} display="flex" flexDirection={ position }>
+                <Paper className={colorClass} elevation={3}>
                     { user } ({("0" + date.getHours()).slice(-2)}:{("0" + date.getMinutes()).slice(-2)}): { msg }
                 </Paper>
             </Box>

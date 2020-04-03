@@ -62,7 +62,6 @@ function App() {
                 alignContent="flex-start"
                 p={1}
                 m={1}
-                bgcolor="background.paper"
             >
             <ChatLayout data={data} localUser={user} />
             </Box>
@@ -72,18 +71,17 @@ function App() {
                 alignContent="flex-end"
                 p={1}
                 m={1}
-                bgcolor="background.paper"
                 css={{ height: 50 }}>
             <InputBar sendMsg={sendMsg}/>
             </Box>
             <Dialog open={open} onClose={handleClose} aria-labelledby="Username">
                 <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-                <Paper color="Primary">
-                    <Box p={2} bgcolor="background.paper">
+                <Paper>
+                    <Box p={2} >
                         <TextField className={classes.textField} id="outlined-basic" label="Enter Username ..." onChange={(event) => {
                             setUser(event.target.value);
                         }}/>
-                        <Button className={classes.sendButton} color="primary" onClick={() => {
+                        <Button className={classes.sendButton} onClick={() => {
                             handleClose();
                         }}>
                             confirm

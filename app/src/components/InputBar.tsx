@@ -40,7 +40,7 @@ export default function InputBar({sendMsg}: Props) {
 
     return (
         <div className={classes.inputBar}>
-            <Paper color="Primary">
+            <Paper>
                 <Box p={2} bgcolor="background.paper">
                     <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." value={msg} onChange={(event) => {
                         setMsg(event.target.value);
