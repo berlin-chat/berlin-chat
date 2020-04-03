@@ -3,11 +3,12 @@ import Box from '@material-ui/core/Box';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import {CardProps} from "@material-ui/core";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-
-    }),
-);
+const defaultProps = {
+    bgcolor: 'background.paper',
+    borderColor: 'text.primary',
+    m: 1,
+    border: 1,
+};
 
 type BubbleProps = {
     msg: string,
@@ -18,7 +19,7 @@ type BubbleProps = {
 
 export const TextBubble = ({msg, timeStamp, user, position}: BubbleProps) => <aside>
     <div>
-        <Box display="flex" flexDirection={ position } p={1} m={1} bgcolor="background.paper">
+        <Box display="flex" flexDirection={ position } p={1} borderRadius={16} {...defaultProps}>
             { user } ( {timeStamp} ): { msg }
         </Box>
     </div>

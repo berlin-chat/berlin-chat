@@ -2,7 +2,6 @@ import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import ChatLayout from "./ChatLayout";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +26,6 @@ export default function InputBar() {
 
     return (
         <div className={classes.root}>
-            <ChatLayout/>
             <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..."/>
         </div>
     );
