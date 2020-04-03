@@ -1,1 +1,9 @@
 version: '3.7'
+
+service:
+  app:
+    build: ./app
+    restart: always
+  api:
+    build: ./api
+    restart: always
