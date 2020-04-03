@@ -17,4 +17,4 @@ services:
     volumes:
       - ./api/cmd:/root/cmd
       - ./api/pkg:/root/pkg
-      - ./database.sqlite:/root/database.sqlite
+      - ./data:/root/data

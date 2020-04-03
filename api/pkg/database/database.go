@@ -10,17 +10,17 @@ import (
 
 func Bootstrap() {
 	log.Println("Deleting database...")
-	os.Remove("/root/database.sqlite")
+	os.Remove("/root/data/database.sqlite")
 
 	log.Println("Creating database...")
-	file, err := os.Create("/root/database.sqlite")
+	file, err := os.Create("/root/data/database.sqlite")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	file.Close()
 	log.Println("database was created")
 
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/database.sqlite")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 	defer sqliteDatabase.Close()
 
 	createMessagesTableSQL := `CREATE TABLE messages (
@@ -40,13 +40,13 @@ func Bootstrap() {
 }
 
 func Query(query string) (*sql.Rows, error) {
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/database.sqlite")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 
 	return sqliteDatabase.Query(query)
 }
 
 func InsertMessage(username string, message string) {
-	sqliteDatabase, _ := sql.Open("sqlite3", "/root/database.sqlite")
+	sqliteDatabase, _ := sql.Open("sqlite3", "/root/data/database.sqlite")
 
 	log.Println("Inserting message record for user >>", username, "<<")
 	insertMessagesSQL := `INSERT INTO messages(username, message) VALUES (?, ?)`
