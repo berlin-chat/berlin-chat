@@ -2,6 +2,8 @@ version: '3.7'
 
 services:
   app:
+    container_name: app_container
+    hostname: app
     build:
       context: ./app
       dockerfile: Dockerfile.prod
@@ -9,6 +11,8 @@ services:
     ports:
       - 80:80
   api:
+    container_name: api_container
+    hostname: api
     build:
       context: ./api
       dockerfile: Dockerfile.prod
