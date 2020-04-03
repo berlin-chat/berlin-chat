@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Raw from "./components/raw";
+import InputBar from "./components/InputBar";
 
 function App() {
   return (
     <div className="App">
-      <Raw name="Josef"/>
+      <InputBar />
     </div>
   );
 }
