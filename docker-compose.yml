@@ -4,6 +4,11 @@ services:
   app:
     build: ./app
     restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/src:/app/src
+      - ./app/public:/app/public
   api:
     build: ./api
     restart: always
