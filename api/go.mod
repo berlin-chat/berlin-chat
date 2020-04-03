@@ -8,4 +8,5 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/ogier/pflag v0.0.1 // indirect
+	github.com/mattn/go-sqlite3 v2.0.3 // indirect
 )

@@ -4,5 +4,9 @@
   "description": "berlin chat app",
   "main": "index.js",
   "repository": "git@github.com:berlin-chat/berlin-chat.git",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "CI=true docker-compose up -d --build",
+    "stop": "docker-compose down"
+  }
 }
