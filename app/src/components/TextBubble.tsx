@@ -8,11 +8,13 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         bubblePrimary: {
             padding: 5,
+            whiteSpace: 'pre-wrap',
             color: "#FFFFFF",
             background: cyan[500]
         },
         bubbleSecondary: {
             padding: 5,
+            whiteSpace: 'pre-wrap',
             background: cyan[50]
         },
     }),

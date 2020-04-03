@@ -42,10 +42,10 @@ export default function InputBar({sendMsg}: Props) {
         <div className={classes.inputBar}>
             <Paper>
                 <Box p={2} bgcolor="background.paper">
-                    <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." value={msg} onChange={(event) => {
+                    <TextField multiline className={classes.textField} id="outlined-basic" label="Enter Message ..." value={msg} onChange={(event) => {
                         setMsg(event.target.value);
                     }} onKeyUp={(event) => {
-                        if (event.key === 'Enter') {
+                        if (event.key === 'Enter' && !event.getModifierState("Shift")) {
                             sendMessageAndClearInput();
                         }
                     }} />
