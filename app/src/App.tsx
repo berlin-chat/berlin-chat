@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {makeStyles, createStyles, Theme, Slide} from "@material-ui/core";
+import {API_ORIGIN} from './config'
 
 import { TransitionProps } from '@material-ui/core/transitions';
 
@@ -42,7 +43,7 @@ function App() {
 
     useEffect(() => {
         async function getData(){
-            const res = await fetch("http://localhost:8080")
+            const res = await fetch(API_ORIGIN)
             setData(await res.json());
             window.scrollTo(0,document.body.scrollHeight);
             if(i == 0){
@@ -53,7 +54,7 @@ function App() {
     }, [i])
 
     async function sendMsg(msg: string) {
-        const res = await fetch("http://localhost:8080/message",
+        const res = await fetch(`${API_ORIGIN}/message`,
             {method: "Post", body: JSON.stringify({Message: msg, Username: user})})
         setI(i + 1);
     }
