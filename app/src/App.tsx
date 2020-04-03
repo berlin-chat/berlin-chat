@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 function App() {
     const [data, setData] = useState(new Array())
     const [i, setI] = useState(0);
-    console.log("hey")
 
     useEffect(() => {
         async function getData(){
