@@ -12,7 +12,7 @@ jobs:
     - name: echo 'test' > ./test.txt
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: ls -a
+        command: echo 'test' > ./test.txt
         host: ${{ secrets.HOST }}
         username: deploy
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
