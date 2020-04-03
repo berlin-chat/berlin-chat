@@ -6,7 +6,7 @@
   "repository": "git@github.com:berlin-chat/berlin-chat.git",
   "license": "MIT",
   "scripts": {
-    "start": "CI=true docker-compose up -d --build",
+    "start": "docker-compose up -d --build",
     "stop": "docker-compose down"
   }
 }
