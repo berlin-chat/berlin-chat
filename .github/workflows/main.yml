@@ -9,16 +9,6 @@ jobs:
     - name: get code from repo
       uses: actions/checkout@v2
 
-    - name: ssh into server
-      uses: garygrossgarten/github-action-ssh@release
-      with:
-        command: | 
-          echo 'test' > ./test.txt
-          echo 'test2' > ./test2.txt
-        host: ${{ secrets.HOST }}
-        username: deploy
-        privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
-
     - name: copy file via ssh key
       uses: appleboy/scp-action@master
       env:
@@ -27,5 +17,14 @@ jobs:
         PORT: 22
         KEY: ${{ secrets.SSH_PRIVATE_KEY}}
       with:
-        source: "./api"
+        source: "./api,./app,docker-compose.prod.yml"
         target: "/home/deploy"
+
+    - name: ssh into server
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: | 
+          sudo docker-compose -f ./docker-compose.prod.yml up -d
+        host: ${{ secrets.HOST }}
+        username: deploy
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
