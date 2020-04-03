@@ -18,7 +18,7 @@ export default function ChatLayout({data, localUser}: ChatLayoutProps){
         <div style={{ width: '100%' }}>
             {data.map((message: Message) => (
                 <TextBubble key={message.ID} msg={message.Message} timeStamp={message.Timestamp} user={message.Username} position={(
-                    message.Username === localUser ? "row" : "row-reverse"
+                    message.Username === localUser ? "row-reverse" : "row"
                 )} />
             ))}
         </div>
