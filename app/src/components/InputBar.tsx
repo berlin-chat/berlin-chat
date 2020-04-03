@@ -33,19 +33,24 @@ export default function InputBar({sendMsg}: Props) {
     const classes = useStyles();
     const [msg, setMsg] = useState("")
 
+    function sendMessageAndClearInput() {
+        sendMsg(msg);
+        setMsg('');
+    }
+
     return (
         <div className={classes.inputBar}>
             <Paper color="Primary">
                 <Box p={2} bgcolor="background.paper">
-                    <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." onChange={(event) => {
+                    <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." value={msg} onChange={(event) => {
                         setMsg(event.target.value);
                     }} onKeyUp={(event) => {
-                        if (event.key == 'Enter') {
-                            sendMsg(msg);
+                        if (event.key === 'Enter') {
+                            sendMessageAndClearInput();
                         }
                     }} />
                     <Button className={classes.sendButton} color="primary" onClick={() => {
-                        sendMsg(msg);
+                        sendMessageAndClearInput();
                     }}>
                         <SendIcon/>
                     </Button>

@@ -12,9 +12,9 @@ function App() {
         async function getData(){
             const res = await fetch("http://localhost:8080")
             setData(await res.json());
+            window.scrollTo(0,document.body.scrollHeight);
         }
         getData()
-        window.scrollTo(0,document.body.scrollHeight);
     }, [i])
 
     async function sendMsg(msg: string) {
