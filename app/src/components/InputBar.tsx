@@ -2,8 +2,10 @@ import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import {useState} from "react";
+import SendIcon from "@material-ui/icons/Send";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,14 +36,16 @@ export default function InputBar({sendMsg}: Props) {
     return (
         <div className={classes.inputBar}>
             <Paper color="Primary">
-                <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." onChange={(event) => {
-                    setMsg(event.target.value);
-                }}/>
-                <Button className={classes.sendButton} color="primary" onClick={() => {
-                    sendMsg(msg);
-                }}>
-                    Send
-                </Button>
+                <Box p={2} bgcolor="background.paper">
+                    <TextField className={classes.textField} id="outlined-basic" label="Enter Message ..." onChange={(event) => {
+                        setMsg(event.target.value);
+                    }}/>
+                    <Button className={classes.sendButton} color="primary" onClick={() => {
+                        sendMsg(msg);
+                    }}>
+                        <SendIcon/>
+                    </Button>
+                </Box>
             </Paper>
         </div>
     );
