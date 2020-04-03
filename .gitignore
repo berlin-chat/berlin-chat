@@ -1,6 +1,6 @@
 # Datenbank
 
-/api/cmd/sqlite-database.db
+database.sqlite
 
 # node
 
