@@ -36,8 +36,8 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.api.rule=Host(`berlin-chat.soon.it`)
-      - traefik.http.routers.api.tls.certresolver=secure
+      - traefik.http.routers.app.rule=Host(`berlin-chat.soon.it`)
+      - traefik.http.routers.app.tls.certresolver=secure
   api:
     container_name: api_container
     hostname: api
