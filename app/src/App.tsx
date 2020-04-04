@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {makeStyles, createStyles, Theme, Slide} from "@material-ui/core";
+import { Slide} from "@material-ui/core";
 import { TransitionProps } from '@material-ui/core/transitions';
 import {useLocalStorage} from './hooks/useLocalStorage';
 import Header from './components/Header';
