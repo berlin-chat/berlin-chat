@@ -1,6 +1,32 @@
 version: '3.7'
 
 services:
+  traefik:
+    image: traefik:v2.2
+    hostname: traefik
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/acme.json:/root/acme.json
+    ports:
+      - 80:80
+      - 443:443
+    command:
+      - --api=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --certificatesresolvers.secure.acme.httpchallenge=true
+      - --certificatesresolvers.secure.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.secure.acme.email=contact@gthiloilg.com
+      - --certificatesresolvers.secure.acme.storage=/root/acme.json
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.detour.rule=hostregexp(`{host:[a-z-.]+}`)
+      - traefik.http.routers.detour.entrypoints=web
+      - traefik.http.routers.detour.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
   app:
     container_name: app_container
     hostname: app
@@ -10,6 +36,10 @@ services:
     restart: always
     ports:
       - 80:80
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`berlin-chat.soon.it`)
+      - traefik.http.routers.api.tls.certresolver=secure
   api:
     container_name: api_container
     hostname: api
@@ -18,6 +48,10 @@ services:
       dockerfile: Dockerfile.prod
     restart: always
     ports:
-      - 8080:8080
+      - 80:80
     volumes:
       - ./data:/root/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api.rule=Host(`api.berlin-chat.soon.it`)
+      - traefik.http.routers.api.tls.certresolver=secure
