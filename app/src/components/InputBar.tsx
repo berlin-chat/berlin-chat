@@ -1,8 +1,5 @@
 import * as React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+import {TextField, Button, Paper, Box} from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import {useState} from "react";
 import SendIcon from "@material-ui/icons/Send";

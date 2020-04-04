@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
 import ChatLayout from "./components/ChatLayout";
 import InputBar from "./components/InputBar";
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,9 +9,10 @@ import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {makeStyles, createStyles, Theme, Slide} from "@material-ui/core";
-import {API_ORIGIN} from './config'
-
 import { TransitionProps } from '@material-ui/core/transitions';
+import Header from './components/Header';
+import {API_ORIGIN} from './config'
+import './App.css';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -74,6 +73,7 @@ function App() {
 
     return (
         <div className="App">
+            <Header />
             <Box
                 display="flex"
                 flexWrap="wrap"
