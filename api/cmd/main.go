@@ -1,15 +1,16 @@
 package main
 
 import (
-	"os"
+	"flag"
+
 	"github.com/berlin-chat/berlin-chat/api/pkg/server"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	var port string
+
+	flag.StringVar(&port, "p", "80", "Port the server listens on")
+	flag.Parse()
 
 	server.Start(port)
 }
