@@ -11,7 +11,7 @@ services:
     ports:
       - 80:80
     environment:
-      - API_ORIGIN=${API_ORIGIN}
+      - API_ORIGIN=http://berlin-chat.soon.it:8080
   api:
     container_name: api_container
     hostname: api
