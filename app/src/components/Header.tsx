@@ -1,5 +1,5 @@
 import React from 'react'
-import {Toolbar, AppBar, Typography} from '@material-ui/core';
+import {Toolbar, AppBar, Typography, Button} from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -11,10 +11,19 @@ const useStyles = makeStyles((theme: Theme) =>
             left: 0,
             right: 0,
         },
+        userName: {
+            marginLeft: 'auto',
+            fontWeight: 'bold'
+        }
     }),
 );
 
-export default function Header(){
+type Props = {
+    user: string,
+    logout: any
+}
+
+export default function Header({user, logout}: Props){
     const classes = useStyles();
 
     return (
@@ -23,6 +32,11 @@ export default function Header(){
                 <Typography variant="h6" className={""}>
                 Berlin Chat
                 </Typography>
+                <p className={classes.userName}>
+                    {user}
+                </p>
+                <br />
+                <Button onClick={logout} color="inherit">Logout</Button>
             </Toolbar>
         </AppBar>
     )

@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {makeStyles, createStyles, Theme, Slide} from "@material-ui/core";
 import { TransitionProps } from '@material-ui/core/transitions';
+import {useLocalStorage} from './hooks/useLocalStorage';
 import Header from './components/Header';
 import {API_ORIGIN} from './config'
 import './App.css';
@@ -21,59 +22,45 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        textField: {
-            width: "100%",
-        },
-        sendButton: {
-            width: "100%",
-        }
-    }),
-);
-
 function App() {
+    const updateInMs = 1000
     const [data, setData] = useState(new Array())
-    const [i, setI] = useState(0);
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [user, setUser] = useState("unknown");
+    const [user, setUser] = useLocalStorage("username", "");
+    const [tmpUser, setTmpUser] = useState("")
     const [usernameError, setUsernameError] = useState("");
+    const open = user === ""
 
     useEffect(() => {
         async function getData(){
             const res = await fetch(API_ORIGIN)
             setData(await res.json());
             window.scrollTo(0,document.body.scrollHeight);
-            if(i == 0){
-                handleClickOpen();
-            }
         }
-        getData()
-    }, [i])
+
+        const polling = setInterval(getData, updateInMs)
+        return () => clearInterval(polling)
+    }, [])
 
     async function sendMsg(msg: string) {
         const res = await fetch(`${API_ORIGIN}/message`,
-            {method: "Post", body: JSON.stringify({Message: msg, Username: user})})
-        setI(i + 1);
+            {method: "Post", body: JSON.stringify({Message: msg, Username: user})
+        })
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = () => {
-        if (user === 'unknown' || user === '') {
+        if (tmpUser === 'unknown' || tmpUser === '') {
             setUsernameError('Please set a username');
             return;
+        } else {
+            setUser(tmpUser)
         }
-
-        setOpen(false);
     };
+
+    const logout = () => setUser("")
 
     return (
         <div className="App">
-            <Header />
+            <Header logout={logout} user={user}/>
             <Box
                 display="flex"
                 flexWrap="wrap"
@@ -101,7 +88,7 @@ function App() {
                         error={!!usernameError}
                         helperText={usernameError}
                         onChange={(event) => {
-                            setUser(event.target.value);
+                             setTmpUser(event.target.value);
                         }}
                         onKeyUp={(event) => {
                             if (event.key === 'Enter') {
